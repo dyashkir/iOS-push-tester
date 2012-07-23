@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://knockoutjs.com/js/knockout-2.1.0.js"></script>
+    </head>
+<body>
+
+  <div class="container">
+    <form data-bind="submit: submitPush" class="form-horizontal">
+      <legend>Send message to iOS through APNS</legend>
+      <div class="control-group">
+        <label class="control-label" for="select01">Pick device to send to</label>
+        <div class="controls">
+          <select name="selector" data-bind="options: devices, optionsText: 'name', value: selectedDevice, optionsCaption: 'Choose...'" id="select01">
+          </select>
+          <p data-bind="text: selectedDevice()?selectedDevice().token:'not selected'"> class="help-block"></p>
+        </div>
+      </div>
+
+      <!--     <div class="control-group">
+        <label class="control-label" for="token-id">iOS Push token</label>
+        <div class="controls">
+          <input required type="text" name="token" class="input-xlarge" id="token-id" value= "ab18f221 c39b0098 17d96ed3 6277222e a2c900e7 6840908f 7eb5fa9a 280a4be6">
+          <p class="help-block">Push token provided by the app when installed on a device</p>
+        </div>
+      </div>
+      -->
+      <div class="control-group">
+        <label class="control-label" for="badge-id">Badge to display</label>
+        <div class="controls">
+          <input data-bind='value: badge' required type="text" name="badge" class="input-xlarge" id="badge-id" value="0">
+          <p class="help-block">Badge to display near the app icon</p>
+        </div>
+      </div> 
+
+      <div class="control-group">
+        <label class="control-label" for="actionKey-id">Action button text</label>
+        <div class="controls">
+          <input data-bind="value: actionButton" type="text" name="actionKey" class="input-xlarge" id="actionKey-id"> 
+          <p class="help-block">Button text on the popup when notification arrives</p>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="message-body">message body</label>
+        <div class="controls">
+          <textarea data-bind="value: messageBody" id="message-body" name="message" class="input-xlarge"></textarea>
+          <p class="help-block">Body of the message, will be displayed to the user when message arrives</p>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="form-actions">
+          <input type="submit" value="Send"  class="btn btn-primary">
+        </div>
+      </div>
+    </form>
+
+<form action="/send/JSON" method="get" class="form-horizontal">
+  <legend>Send message to iOS through APNS by directly putting JSON</legend>
+  <div class="control-group">
+  <label class="control-label" for="token-id-json">iOS Push token</label>
+      <div class="controls">
+        <input required type="text" name="token" class="input-xlarge" id="token-id-json" value= "ab18f221 c39b0098 17d96ed3 6277222e a2c900e7 6840908f 7eb5fa9a 280a4be6">
+        <p class="help-block">Push token provided by the app when installed on a device</p>
+      </div>
+
+
+    <label class="control-label" for="message-json">JSON to send</label>
+    <div class="controls">
+      <textarea id="message-json" class="input-xlarge" name="message" rows="12">{"aps":{"sound":"default","alert":{"body":"You have no chance to survive make your time","action-loc-key":"Do IT"},"badge":0},"most_awesome":" secret data"}</textarea>
+    </div>
+    <div class="form-actions">
+      <input type="submit" value="Send"  class="btn btn-primary">
+    </div>
+  </div>
+</form>
+
+
+</div>
+<script type="text/javascript" src="model.js"></script>
+
+</body>
+</html>
